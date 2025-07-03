@@ -1,0 +1,123 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 10px;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+.top-buttons {
+  display: grid;
+  text-align: center;
+  column-gap: 10px;
+  grid-template-columns: 1fr 1fr 13fr 2fr
+}
+
+button {
+  padding: 5px;
+  font-size: 1em;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.ator {
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-left: 6px solid #007bff;
+  border-radius: 6px;
+  position: relative;
+}
+
+.vida {
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  background: transparent;
+  padding: 2px 4px;
+  font-size: 1em;
+  width: 10%; /* ou auto */
+}
+
+.anotacao {
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  background: transparent;
+  padding: 2px 4px;
+  font-size: 1em;
+  width: 50%; /* ou auto */
+}
+
+.cabecalio {
+  display: grid;
+  text-align: center;
+  grid-template-columns: 2533fr 9404fr 1030fr 66903fr 848fr 10351fr 8932fr; /* controle de proporção */
+  column-gap: 0px;
+}
+
+.nome {
+  margin: 5px 0;
+  padding: 5px;
+  width: 70%;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.iniciativa {
+  margin: 5px 0;
+  padding: 5px;
+  width: 11%;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.tier {
+  margin: 5px 0;
+  padding: 5px;
+  width: 10%;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.status {
+  display: flex;
+  /*justify-content: space-between;*/
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.duracao {
+  width: 10%; /* ou auto */
+}
+
+.statusReal {
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  background: transparent;
+  padding: 2px 4px;
+  font-size: 1em;
+  width: 70%; /* ou auto */
+}
+
+.status-container {
+  margin-top: 8px;
+  border-top: 1px dashed #ccc;
+  padding-top: 5px;
+}
