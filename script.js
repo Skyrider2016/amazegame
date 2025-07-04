@@ -20,6 +20,7 @@ function addAtor() {
     </select>
     <input type="text" class="nome">
     <input type="number" class="iniciativa">
+    <button class="botao-pequeno" onclick="trocarTipo(this)"></button>
     <button onclick="removerAtor(this)">X</button>
 
     
@@ -54,6 +55,7 @@ function addAtor() {
 }
 
 function adicionarStatus(botao) {
+  
   const container = botao.parentElement.querySelector('.status-container');
 
   const linha = document.createElement('div');
@@ -67,17 +69,45 @@ function adicionarStatus(botao) {
   container.appendChild(linha);
 }
 
+function trocarTipo(botao){
+  const ator = botao.parentElement
+  const tipo = ator.dataset.tipo
+  if(tipo == "Neutro"){
+    ator.dataset.tipo = "Aliado"
+    botao.style.backgroundColor = 'green'; // muda para vermelho
+    botao.style.color = 'white';
+
+  }else if(tipo == "Aliado"){
+    ator.dataset.tipo = "Inimigo"
+    botao.style.backgroundColor = 'red'; // muda para vermelho
+    botao.style.color = 'white';
+
+  }else if(tipo == "Inimigo"){
+    ator.dataset.tipo = "Ambiente"
+    botao.style.backgroundColor = 'yellow'; // muda para vermelho
+    botao.style.color = 'white';
+
+  }else {
+    ator.dataset.tipo = "Neutro"
+    botao.style.backgroundColor = 'gray'; // muda para vermelho
+    botao.style.color = 'white';
+
+  }
+}
+
 function removerAtor(botao){
   botao.parentElement.remove()
 }
 
+
 function rolarTodasIniciativas() {
+  documentarHist("Rolando Iniciativas")
   const atores = document.querySelectorAll('.ator');
 
   atores.forEach(ator => {
     const tier = ator.querySelector('.tier').value;
     const iniciativaInput = ator.querySelector('.iniciativa');
-    const valor = rolarDadoPorTier(tier);
+    let valor = rolarDadoPorTier(ator.querySelector('.nome').value , tier);
     iniciativaInput.value = valor;
   });
 
@@ -85,16 +115,34 @@ function rolarTodasIniciativas() {
 
   atores.forEach(ator => {
     const iniciativaInput = ator.querySelector('.iniciativa');
-    const valor = iniciativaInput.value
-    iniciativaInput.value = valor - valor%10;
-    ator.dataset.ciclo = Math.floor(valor/10 + 1)
+    let valor = iniciativaInput.value
+    
+    valor-= valor%10
+    iniciativaInput.value = valor
+    ator.dataset.ciclo = valor
   });
 }
 
-function rolarDadoPorTier(tier) {
+function rolarDadoPorTier(nome, tier) {
+  
   const dados = { S: 2, A: 4, B: 6, C: 8, D: 10 };
   const max = dados[tier] || 6;
-  return Math.floor(Math.random() * max) + Math.floor(Math.random() * max) + Math.floor(Math.random() * max) + 3;
+  let result = 0
+  let dadoText = nome +` rolou 3d${max}(`
+  let valor
+
+  for(i=1;i<=3;i++){
+    valor = Math.floor(Math.random() * max) + 1
+    result+= valor
+    if(i<3){
+      dadoText+= `${valor} + `
+    }else{
+      dadoText+= `${valor} = ${result})`
+    }
+  }
+  
+  documentarHist(dadoText)
+  return  result;
 }
 
 function ordenarLista() {
@@ -104,8 +152,8 @@ function ordenarLista() {
 
 
   atores.sort((a, b) => {
-    const aVal = a.dataset.ciclo || 1;
-    const bVal = b.dataset.ciclo || 1;
+    const aVal = a.dataset.ciclo || 0;
+    const bVal = b.dataset.ciclo || 0;
     return bVal - aVal; // Ordem decrescente
   });
   
@@ -116,7 +164,7 @@ function ordenarLista() {
     return aVal - bVal; // Ordem decrescente
   });
   atores.forEach(ator => {
-    ator.dataset.ciclo = Math.floor(parseInt(ator.querySelector('.iniciativa').value)/10 + 1)
+    ator.dataset.ciclo = parseInt(ator.querySelector('.iniciativa').value)
     lista.appendChild(ator);
   });
 }
@@ -124,10 +172,18 @@ function ordenarLista() {
 function zeraIniciativa(){
   const inputsStatus = document.querySelectorAll(".duracao");
   const inputsInit = document.querySelectorAll(".iniciativa"); // seleciona todos os inputs com classe "vida"
-
+ 
   inputsStatus.forEach(input => {
-    const valorAtual = parseInt(input.value) || 0; // transforma o valor em número
-    input.value = Math.max(0, valorAtual - 10);     // reduz 10, sem deixar negativo
+    if(input.value!=null){
+      let valorAtual = parseInt(input.value)
+      valorAtual -= 10
+      if(valorAtual<=0){
+        documentarHist(`Status ${input.parentElement.querySelector('.statusReal').value} de ${input.parentElement.parentElement.parentElement.querySelector('.nome').value} chegou ao fim`)
+        removerAtor(input)
+        }else{
+        input.value = valorAtual;
+      }
+    }
   });
 
     inputsInit.forEach(input => {
@@ -135,4 +191,15 @@ function zeraIniciativa(){
     input.value = Math.max(0, valorAtual - valorAtual%10 - 10);     // reduz 10, sem deixar negativo
     input.parentElement.dataset.ciclo = input.value/10 + 1
   });
+}
+
+function documentarHist(texto){
+  const data = new Date()
+  const hora = String(data.getHours()).padStart(2, '0')
+  const min = String(data.getMinutes()).padStart(2, '0')
+  const sec = String(data.getSeconds()).padStart(2, '0')
+  const dataText = "("+hora + ":" + min + ":" +sec +")"
+  const hist = document.querySelector(".historico");
+  hist.innerHTML += dataText + ": " + texto + "<br>"
+  hist.scrollTop = hist.scrollHeight;
 }

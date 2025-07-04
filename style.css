@@ -10,6 +10,17 @@ body {
   margin: auto;
 }
 
+.botao-pequeno {
+  width: 10%;             /* Largura */
+  height: 30px;            /* Altura (igual à largura para ser quadrado) */
+  border-radius: 8px;      /* Cantos arredondados */
+  border: none;            /* Remove a borda padrão */
+  background-color: gray; /* Cor inicial */
+  font-size: 20px;         /* Tamanho do texto */
+  cursor: pointer;         /* Muda o cursor para "mãozinha" */
+  /*transition: background-color 0.3s; /* Transição suave da cor */
+}
+
 h1 {
   text-align: center;
 }
@@ -44,6 +55,21 @@ button:hover {
   position: relative;
 }
 
+.listaAtos {
+  height: 500px;           /* Altura fixa da div */
+  overflow-y: auto;        /* Cria uma barra de rolagem vertical se necessário */
+  border: 1px solid #000;  /* Apenas para visualizar os limites */
+  padding: 10px;
+}
+
+.historico {
+  margin-top: 7px;
+  height: 120px;           /* Altura fixa da div */
+  overflow-y: auto;        /* Cria uma barra de rolagem vertical se necessário */
+  border: 1px solid #000;  /* Apenas para visualizar os limites */
+  padding: 10px;
+}
+
 .vida {
   border: none;
   border-bottom: 1px solid black;
@@ -51,7 +77,17 @@ button:hover {
   background: transparent;
   padding: 2px 4px;
   font-size: 1em;
-  width: 10%; /* ou auto */
+  width: 5%; /* ou auto */
+}
+
+.vida::-webkit-inner-spin-button,
+.vida::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.sem-setas {
+  -moz-appearance: textfield;
 }
 
 .anotacao {
@@ -61,7 +97,7 @@ button:hover {
   background: transparent;
   padding: 2px 4px;
   font-size: 1em;
-  width: 50%; /* ou auto */
+  width: auto
 }
 
 .cabecalio {
@@ -74,7 +110,7 @@ button:hover {
 .nome {
   margin: 5px 0;
   padding: 5px;
-  width: 70%;
+  width: 50%;
   box-sizing: border-box;
   font-size: 1em;
 }
@@ -90,7 +126,7 @@ button:hover {
 .tier {
   margin: 5px 0;
   padding: 5px;
-  width: 10%;
+  width: 15%;
   box-sizing: border-box;
   font-size: 1em;
 }
