@@ -1,5 +1,6 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Book Antiqua Regular, Arial, sans-serif;
+  color: white;
   margin: 0;
   padding: 10px;
   background-color: #f4f4f4;
@@ -7,18 +8,36 @@ body {
 
 .container {
   max-width: 600px;
-  margin: auto;
+  margin:auto;
+  padding-top: 5px;
 }
 
 .botao-pequeno {
   width: 10%;             /* Largura */
   height: 30px;            /* Altura (igual à largura para ser quadrado) */
   border-radius: 8px;      /* Cantos arredondados */
-  border: none;            /* Remove a borda padrão */
-  background-color: gray; /* Cor inicial */
+  border: #000 solid;         
+
+  background-color: #505050; /* Cor inicial */
   font-size: 20px;         /* Tamanho do texto */
   cursor: pointer;         /* Muda o cursor para "mãozinha" */
-  /*transition: background-color 0.3s; /* Transição suave da cor */
+  /* 🔑 Alinhamento vertical com os inputs */
+  vertical-align: middle;
+  
+}
+
+.botao-imagem {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.imagem-do-botao {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
 }
 
 h1 {
@@ -26,6 +45,7 @@ h1 {
 }
 
 .top-buttons {
+  margin: 10px;
   display: grid;
   text-align: center;
   column-gap: 10px;
@@ -33,13 +53,16 @@ h1 {
 }
 
 button {
+  font-family: Book Antiqua Regular;
   padding: 5px;
   font-size: 1em;
   border: none;
   border-radius: 8px;
-  background-color: #007bff;
+  background: linear-gradient(to bottom, #4a4b4a, #333333);
+  
   color: white;
   cursor: pointer;
+  border: 2px solid #242424;
 }
 
 button:hover {
@@ -47,11 +70,10 @@ button:hover {
 }
 
 .ator {
-  background-color: white;
+  background-color: #505050;
   padding: 10px;
   margin-bottom: 10px;
-  border-left: 6px solid #007bff;
-  border-radius: 6px;
+  border: 3px solid #bebebe;
   position: relative;
 }
 
@@ -85,10 +107,10 @@ button:hover {
   -webkit-appearance: none;
   margin: 0;
 }
-
+/*
 .sem-setas {
   -moz-appearance: textfield;
-}
+}*/
 
 .anotacao {
   border: none;
@@ -108,27 +130,40 @@ button:hover {
 }
 
 .nome {
+  font-family: Book Antiqua Regular;
+  color: white;
   margin: 5px 0;
   padding: 5px;
   width: 50%;
   box-sizing: border-box;
   font-size: 1em;
+  background-color: #363233;
+  border-radius: 6px;
 }
 
 .iniciativa {
+  font-family: Book Antiqua Regular;
+  color: white;
   margin: 5px 0;
-  padding: 5px;
+  padding: 2px;
   width: 11%;
   box-sizing: border-box;
-  font-size: 1em;
+  font-size: 20pt;
+  text-align: center;
+  background-color: #363233;
+  border-radius: 6px;
 }
 
 .tier {
+  font-family: Book Antiqua Regular;
+  color: white;
   margin: 5px 0;
   padding: 5px;
   width: 15%;
   box-sizing: border-box;
-  font-size: 1em;
+  font-size: 20px;
+  background-color: #363233;
+  border-radius: 6px;
 }
 
 .status {
@@ -140,6 +175,7 @@ button:hover {
 
 .duracao {
   width: 10%; /* ou auto */
+  background-color: #363233;
 }
 
 .statusReal {

@@ -1,4 +1,5 @@
 let idCounter = 0;
+let countInit = false
 
 function addAtor() {
   const lista = document.getElementById('listaAtos');
@@ -21,13 +22,17 @@ function addAtor() {
     <input type="text" class="nome">
     <input type="number" class="iniciativa">
     <button class="botao-pequeno" onclick="trocarTipo(this)"></button>
-    <button onclick="removerAtor(this)">X</button>
+    <button onclick="removerAtor(this)" class="botao-imagem">
+      <img src="delete.png" alt="Botão" class="imagem-do-botao">
+    </button>
 
     
     Vida: <input type="number" class="vida"> /
     <input type="number" class="vida">
     Anot: <input type="text" class="anotacao">
-    <button onclick="adicionarStatus(this)">🏷️</button>
+    <button onclick="adicionarStatus(this)" class="botao-imagem">
+      <img src="addEffect.png" alt="Botão" class="imagem-do-botao">
+    </button>
     <div class="status-container"></div>
   `;
 
@@ -61,9 +66,11 @@ function adicionarStatus(botao) {
   const linha = document.createElement('div');
   linha.classList.add('status');
   linha.innerHTML = `
-    🔖 <input type="text" class = "statusReal">
+    <img src="effect.png" alt="Status" class="imagem-do-botao"> <input type="text" class = "statusReal">
     <input type="number" class="duracao"> 
-    <button onclick="removerAtor(this)">-</button>
+    <button onclick="removerAtor(this)" class="botao-imagem">
+      <img src="deleteEffect.png" alt="Botão" class="imagem-do-botao">
+    </button>
   `;
 
   container.appendChild(linha);
@@ -74,25 +81,31 @@ function trocarTipo(botao){
   const tipo = ator.dataset.tipo
   if(tipo == "Neutro"){
     ator.dataset.tipo = "Aliado"
-    botao.style.backgroundColor = 'green'; // muda para vermelho
-    botao.style.color = 'white';
+    botao.style.background = '#19d600'; // muda para Verde
+    ator.style.backgroundColor = '#095302'
+    ator.style.borderColor = '#19d600'
 
   }else if(tipo == "Aliado"){
     ator.dataset.tipo = "Inimigo"
-    botao.style.backgroundColor = 'red'; // muda para vermelho
-    botao.style.color = 'white';
+    botao.style.background = '#ff0000'; // muda para vermelho
+    ator.style.backgroundColor = '#710000'
+    ator.style.borderColor = '#d60000'
 
   }else if(tipo == "Inimigo"){
     ator.dataset.tipo = "Ambiente"
-    botao.style.backgroundColor = 'yellow'; // muda para vermelho
-    botao.style.color = 'white';
+    botao.style.background = '#ffff00'; // muda para Amarelo
+    ator.style.backgroundColor = '#5f5f49'
+    ator.style.borderColor = '#bebe1e'
+    
 
   }else {
     ator.dataset.tipo = "Neutro"
-    botao.style.backgroundColor = 'gray'; // muda para vermelho
-    botao.style.color = 'white';
+    botao.style.background = '#505050'; // muda para Cinza
+    ator.style.backgroundColor = '#505050'
+    ator.style.borderColor = '#bebebe'
 
   }
+  ordenarLista()
 }
 
 function removerAtor(botao){
@@ -117,10 +130,11 @@ function rolarTodasIniciativas() {
     const iniciativaInput = ator.querySelector('.iniciativa');
     let valor = iniciativaInput.value
     
-    valor-= valor%10
+    //valor-= valor%10
     iniciativaInput.value = valor
     ator.dataset.ciclo = valor
   });
+  countInit = true
 }
 
 function rolarDadoPorTier(nome, tier) {
@@ -161,7 +175,7 @@ function ordenarLista() {
   atores.sort((a, b) => {
     const aVal = parseInt(a.querySelector('.iniciativa').value) || 0;
     const bVal = parseInt(b.querySelector('.iniciativa').value) || 0;
-    return aVal - bVal; // Ordem decrescente
+    return (aVal + (a.dataset.tipo == "Inimigo" ? 0.5 : 0)) - (bVal + (b.dataset.tipo == "Inimigo" ? 0.5 : 0)); // Ordem decrescente
   });
   atores.forEach(ator => {
     ator.dataset.ciclo = parseInt(ator.querySelector('.iniciativa').value)
@@ -188,9 +202,10 @@ function zeraIniciativa(){
 
     inputsInit.forEach(input => {
     const valorAtual = parseInt(input.value) || 0; // transforma o valor em número
-    input.value = Math.max(0, valorAtual - valorAtual%10 - 10);     // reduz 10, sem deixar negativo
+    input.value = Math.max(0, valorAtual - valorAtual%10 - (countInit ? 0 : 10));     // reduz 10, sem deixar negativo
     input.parentElement.dataset.ciclo = input.value/10 + 1
   });
+  countInit = false
 }
 
 function documentarHist(texto){
