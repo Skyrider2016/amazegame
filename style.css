@@ -52,7 +52,9 @@ h1 {
   grid-template-columns: 1fr 1fr 13fr 2fr
 }
 
-button {
+
+
+.botao-cabecalio {
   font-family: Book Antiqua Regular;
   padding: 5px;
   font-size: 1em;
@@ -65,8 +67,8 @@ button {
   border: 2px solid #242424;
 }
 
-button:hover {
-  background-color: #0056b3;
+.botao-cabecalio:hover {
+  background: linear-gradient(to bottom, #6d6d6d, #333333);
 }
 
 .ator {
