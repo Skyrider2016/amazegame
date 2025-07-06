@@ -13,7 +13,8 @@ body {
 }
 
 .botao-pequeno {
-  width: 45px;             /* Largura */
+  width: 45px;
+  min-width: 45px;             /* Largura */
   border-radius: 8px;      /* Cantos arredondados */
   border: 2px #000 solid;         
   background-color: #505050; /* Cor inicial */
@@ -38,6 +39,7 @@ body {
 .imagem-do-botao {
   width: 20px;
   height: 20px;
+  min-width: 20px;
   vertical-align: middle;
 }
 
@@ -122,6 +124,7 @@ h1 {
   border: none;
   border-bottom: 1px solid black;
   outline: none;
+  text-align: center;
   background: transparent;
   padding: 0px 4px;
   font-size: 1em;
@@ -185,7 +188,7 @@ input::-webkit-outer-spin-button {
   width: 40px;
   height: 30px;
   box-sizing: border-box;
-  
+  min-width: 40px;
   font-size: 15pt;
   text-align: center;
   background-color: #363233;
@@ -202,6 +205,7 @@ input::-webkit-outer-spin-button {
   height: 30px;
   box-sizing: border-box;
   width: 50px;
+  min-width: 50px;
   font-size: 19px;
   background-color: #363233;
   border-radius: 6px;

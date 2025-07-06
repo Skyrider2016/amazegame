@@ -28,8 +28,8 @@ function addAtor() {
       </button>
     </div>
     <div class="linha" style="margin-top: 5px;">
-      Vida: <input type="number" class="vida"> /
-      <input type="number" class="vida">
+      Vida: <input type="number" class="vida" onfocus="this.select()"> /
+      <input type="number" class="vida" onfocus="this.select()">
       Anot.: <input type="text" class="anotacao">
       <button onclick="adicionarStatus(this)" class="botao-imagem">
         <img src="addEffect.png" alt="Botão" class="imagem-do-botao">
