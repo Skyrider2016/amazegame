@@ -14,11 +14,11 @@ function addAtor() {
   ator.innerHTML = `
     <div class="linha">
       <select class="tier">
-        <option value="S">S</option>
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="C">C</option>
         <option value="D">D</option>
+        <option value="C">C</option>
+        <option value="B">B</option>
+        <option value="A">A</option>
+        <option value="S">S</option>
       </select>
       <input type="text" class="nome">
       <input type="number" class="iniciativa">
@@ -27,7 +27,7 @@ function addAtor() {
         <img src="delete.png" alt="Botão" class="imagem-do-botao">
       </button>
     </div>
-    <div class="linha" style="margin-top: 5px;">
+    <div class="linha" style="margin-top: 5px" >
       Vida: <input type="number" class="vida" onfocus="this.select()"> /
       <input type="number" class="vida" onfocus="this.select()">
       Anot.: <input type="text" class="anotacao">
@@ -60,6 +60,23 @@ function addAtor() {
     });
 
   lista.appendChild(ator);
+}
+
+function limparDados(){
+  const atores = document.querySelectorAll('.ator');
+  const status = document.querySelectorAll('.status');
+  status.forEach(stat => {
+    stat.remove()
+  });
+  atores.forEach(ator => {
+    ator.querySelector('.tier').value = 'D';
+    ator.querySelector('.nome').value = '';
+    ator.querySelector('.iniciativa').value = '';
+    ator.dataset.tipo = "Ambiente"
+    trocarTipo(ator.querySelector('.botao-pequeno'))
+    ator.querySelectorAll('.vida').forEach(input => input.value = '');
+    ator.querySelector('.anotacao').value = '';
+  });
 }
 
 function adicionarStatus(botao) {

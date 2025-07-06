@@ -57,6 +57,7 @@ h1 {
   margin: 10px;
   text-align: center;
   display: flex;
+  gap:8px;
   justify-content: space-between; /* Deixa o conteúdo nas extremidades */
   align-items: center;            /* Alinha verticalmente */
 }
@@ -73,7 +74,7 @@ h1 {
 
 .botao-cabecalio {
   font-family: Book Antiqua Regular;
-  
+  text-shadow: 0px 0px 4px black;
   padding-right: 12px;
   padding-left: 12px;
   padding-top: 3px;
@@ -90,17 +91,13 @@ h1 {
   background: linear-gradient(to bottom, #6d6d6d, #333333);
 }
 
-#plus{
-  margin-right: 8px;
-}
-
 .ator {
   background-color: #505050;
   padding: 10px;
-  padding-top: 12.5px;
+  padding-top: 7px;
   padding-bottom: 12.5px;
   margin-bottom: 0px;
-  border: 3px solid #bebebe;
+  border: 2px solid #bebebe;
   position: relative;
   color: #000;
 }
@@ -162,6 +159,8 @@ input::-webkit-outer-spin-button {
   border-top: 4px solid white;
   padding-left: 13px;
   padding-right: 38px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .nome {
@@ -260,6 +259,11 @@ input::-webkit-outer-spin-button {
 ::selection {
   background: #bb851081;
   color: #f5e4be;
+}
+
+.tier option {
+  background-color: #444;
+  color: white;
 }
 
 .status-container {
