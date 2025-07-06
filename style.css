@@ -159,13 +159,13 @@ input::-webkit-outer-spin-button {
 
 .nome {
   font-family: Book Antiqua Regular;
+  text-indent: 6px;
   flex-grow: 1;
   color: white;
   margin: 0px;
   height: 30px;
   box-sizing: border-box;
   padding: 0px;
-  padding-left: 6px;
   min-width: 0;
   font-size: 15pt;
   background-color: #363233;
@@ -193,7 +193,7 @@ input::-webkit-outer-spin-button {
   appearance: none;   
   font-family: Book Antiqua Regular;
   color: white;
-  text-indent: 15px;
+  padding-left: 15px;
   margin: 0px;
   height: 30px;
   box-sizing: border-box;
