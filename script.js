@@ -12,28 +12,31 @@ function addAtor() {
   ator.dataset.tipo = "Neutro"
 
   ator.innerHTML = `
-    <select class="tier">
-      <option value="S">S</option>
-      <option value="A">A</option>
-      <option value="B">B</option>
-      <option value="C">C</option>
-      <option value="D">D</option>
-    </select>
-    <input type="text" class="nome">
-    <input type="number" class="iniciativa">
-    <button class="botao-pequeno" onclick="trocarTipo(this)"></button>
-    <button onclick="removerAtor(this)" class="botao-imagem">
-      <img src="delete.png" alt="Botão" class="imagem-do-botao">
-    </button>
-
-    
-    Vida: <input type="number" class="vida"> /
-    <input type="number" class="vida">
-    Anot: <input type="text" class="anotacao">
-    <button onclick="adicionarStatus(this)" class="botao-imagem">
-      <img src="addEffect.png" alt="Botão" class="imagem-do-botao">
-    </button>
+    <div class="linha">
+      <select class="tier">
+        <option value="S">S</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+      </select>
+      <input type="text" class="nome">
+      <input type="number" class="iniciativa">
+      <button class="botao-pequeno" onclick="trocarTipo(this)"></button>
+      <button onclick="removerAtor(this)" class="botao-imagem">
+        <img src="delete.png" alt="Botão" class="imagem-do-botao">
+      </button>
+    </div>
+    <div class="linha" style="margin-top: 5px;">
+      Vida: <input type="number" class="vida"> /
+      <input type="number" class="vida">
+      Anot.: <input type="text" class="anotacao">
+      <button onclick="adicionarStatus(this)" class="botao-imagem">
+        <img src="addEffect.png" alt="Botão" class="imagem-do-botao">
+      </button>
+    </div>
     <div class="status-container"></div>
+    
   `;
 
 
@@ -61,7 +64,7 @@ function addAtor() {
 
 function adicionarStatus(botao) {
   
-  const container = botao.parentElement.querySelector('.status-container');
+  const container = botao.parentElement.parentElement.querySelector('.status-container');
 
   const linha = document.createElement('div');
   linha.classList.add('status');
@@ -77,23 +80,26 @@ function adicionarStatus(botao) {
 }
 
 function trocarTipo(botao){
-  const ator = botao.parentElement
+  const ator = botao.parentElement.parentElement
   const tipo = ator.dataset.tipo
   if(tipo == "Neutro"){
     ator.dataset.tipo = "Aliado"
     botao.style.background = '#19d600'; // muda para Verde
+    botao.style.borderColor = '#0c7c00'
     ator.style.backgroundColor = '#095302'
     ator.style.borderColor = '#19d600'
 
   }else if(tipo == "Aliado"){
     ator.dataset.tipo = "Inimigo"
     botao.style.background = '#ff0000'; // muda para vermelho
+    botao.style.borderColor = '#b50000'
     ator.style.backgroundColor = '#710000'
     ator.style.borderColor = '#d60000'
 
   }else if(tipo == "Inimigo"){
     ator.dataset.tipo = "Ambiente"
     botao.style.background = '#ffff00'; // muda para Amarelo
+    botao.style.borderColor = '#c3c31b'
     ator.style.backgroundColor = '#5f5f49'
     ator.style.borderColor = '#bebe1e'
     
@@ -101,6 +107,7 @@ function trocarTipo(botao){
   }else {
     ator.dataset.tipo = "Neutro"
     botao.style.background = '#505050'; // muda para Cinza
+    botao.style.borderColor = '#000000'
     ator.style.backgroundColor = '#505050'
     ator.style.borderColor = '#bebebe'
 
