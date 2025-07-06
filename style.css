@@ -7,18 +7,19 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 400px;
   margin:auto;
   padding-top: 5px;
 }
 
 .botao-pequeno {
-  width: 40px;             /* Largura */
-  height: 35px;            /* Altura (igual à largura para ser quadrado) */
+  width: 45px;             /* Largura */
   border-radius: 8px;      /* Cantos arredondados */
   border: 2px #000 solid;         
   background-color: #505050; /* Cor inicial */
   font-size: 20px;         /* Tamanho do texto */
+  height: 30px;
+  box-sizing: border-box;
   cursor: pointer;         /* Muda o cursor para "mãozinha" */
   /* 🔑 Alinhamento vertical com os inputs */
   
@@ -40,6 +41,12 @@ body {
   vertical-align: middle;
 }
 
+.imagem {
+  width: 20px;
+  height: 20px;
+  padding-top: 5px;
+}
+
 h1 {
   text-align: center;
 }
@@ -59,6 +66,7 @@ h1 {
 .linha{
   display: flex;
   gap: 5px;
+  margin-top: 5px;
 }
 
 .botao-cabecalio {
@@ -87,8 +95,8 @@ h1 {
 .ator {
   background-color: #505050;
   padding: 10px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 12.5px;
+  padding-bottom: 12.5px;
   margin-bottom: 0px;
   border: 3px solid #bebebe;
   position: relative;
@@ -132,13 +140,13 @@ input::-webkit-outer-spin-button {
 
 .anotacao {
   border: none;
+  flex-grow: 1;
   border-bottom: 1px solid black;
   outline: none;
+  min-width: 0;
   background: transparent;
   padding: 0px 4px;
   font-size: 1em;
-  flex-grow: 1;
-  width: auto
 }
 
 .cabecalio {
@@ -151,11 +159,14 @@ input::-webkit-outer-spin-button {
 
 .nome {
   font-family: Book Antiqua Regular;
+  text-indent: 6px;
   flex-grow: 1;
   color: white;
   margin: 0px;
-  padding: 2.5px;
-  width: auto;
+  height: 30px;
+  box-sizing: border-box;
+  padding: 0px;
+  min-width: 0;
   font-size: 15pt;
   background-color: #363233;
   border: 2px solid #242424;
@@ -168,6 +179,8 @@ input::-webkit-outer-spin-button {
   margin: 0px;
   padding: 2.5px;
   width: 40px;
+  height: 30px;
+  box-sizing: border-box;
   
   font-size: 15pt;
   text-align: center;
@@ -180,7 +193,8 @@ input::-webkit-outer-spin-button {
   font-family: Book Antiqua Regular;
   color: white;
   margin: 0px;
-  padding: 2.5px;
+  height: 30px;
+  box-sizing: border-box;
   width: 50px;
   font-size: 19px;
   background-color: #363233;
@@ -204,29 +218,36 @@ input::-webkit-outer-spin-button {
   justify-content: space-between;
   gap: 5px;
   margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .duracao {
+  font-family: Book Antiqua Regular;
   font-size: 15pt;
   text-align: center;
   color: white;
   border: 2px solid #242424;
-  width: 30px; /* ou auto */
+  height: 25px;
+  box-sizing: border-box;
+  width: 35px; /* ou auto */
   border-radius: 3px;
   background-color: #363233;
 }
 
 .statusReal {
-  flex-grow: 1;
   border: none;
   border-bottom: 1px solid black;
   outline: none;
+  height: 24px;
+  box-sizing: border-box;
   background: transparent;
-  padding: 2px 4px;
+  padding-top: 7px;
   font-size: 1em;
-  width: 70%; /* ou auto */
+  flex-grow: 1;
+  min-width: 0; /* ou auto */
 }
 
 .status-container {
   padding-top: 2px;
+  
 }

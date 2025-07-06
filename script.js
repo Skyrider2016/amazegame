@@ -69,7 +69,8 @@ function adicionarStatus(botao) {
   const linha = document.createElement('div');
   linha.classList.add('status');
   linha.innerHTML = `
-    <img src="effect.png" alt="Status" class="imagem-do-botao"> <input type="text" class = "statusReal">
+    <img src="effect.png" alt="Status" class="imagem"> 
+    <input type="text" class = "statusReal">
     <input type="number" class="duracao"> 
     <button onclick="removerAtor(this)" class="botao-imagem">
       <img src="deleteEffect.png" alt="Botão" class="imagem-do-botao">
