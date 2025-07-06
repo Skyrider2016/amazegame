@@ -23,7 +23,7 @@ function addAtor() {
       <input type="text" class="nome">
       <input type="number" class="iniciativa">
       <button class="botao-pequeno" onclick="trocarTipo(this)"></button>
-      <button onclick="removerAtor(this)" class="botao-imagem">
+      <button onclick="removerAtor(this.parentElement)" class="botao-imagem">
         <img src="delete.png" alt="Botão" class="imagem-do-botao">
       </button>
     </div>
