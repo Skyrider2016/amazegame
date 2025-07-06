@@ -257,6 +257,11 @@ input::-webkit-outer-spin-button {
   min-width: 0; /* ou auto */
 }
 
+::selection {
+  background: #bb851081;
+  color: #f5e4be;
+}
+
 .status-container {
   padding-top: 2px;
   
