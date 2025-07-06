@@ -106,7 +106,7 @@ h1 {
 .listaAtos {
   height: 500px;           /* Altura fixa da div */
   overflow-y: auto;        /* Cria uma barra de rolagem vertical se necessário */
-  border: 1px solid #000;  /* Apenas para visualizar os limites */
+  border: none;  /* Apenas para visualizar os limites */
   padding: 0px;
 }
 
@@ -151,14 +151,14 @@ input::-webkit-outer-spin-button {
 
 .cabecalio {
   display: flex;
-  gap: 15px;
+  gap: 5px;
   text-align: center;
   display: flex;
   justify-content: space-between; /* Deixa o conteúdo nas extremidades */
   align-items: center;            
   border-top: 4px solid white;
-  padding-left: 21px;
-  padding-right: 47px;
+  padding-left: 13px;
+  padding-right: 38px;
 }
 
 .nome {
