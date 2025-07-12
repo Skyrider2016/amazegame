@@ -10,6 +10,9 @@ function addAtor() {
   ator.dataset.id = idCounter++;
   ator.dataset.ciclo = 1;
   ator.dataset.tipo = "Neutro"
+  ator.dataset.initReal = '';
+  ator.dataset.vidaTotal = 0;
+  ator.dataset.vidaAtual = 0;
 
   ator.innerHTML = `
     <div class="linha">
@@ -21,15 +24,15 @@ function addAtor() {
         <option value="S">S</option>
       </select>
       <input type="text" class="nome">
-      <input type="number" class="iniciativa">
+      <input type="text" class="iniciativa" oninput="validarNumeroComSinal(this)">
       <button class="botao-pequeno" onclick="trocarTipo(this)"></button>
       <button onclick="removerAtor(this.parentElement)" class="botao-imagem">
         <img src="delete.png" alt="Botão" class="imagem-do-botao">
       </button>
     </div>
     <div class="linha" style="margin-top: 5px" >
-      Vida: <input type="number" class="vida" onfocus="this.select()"> /
-      <input type="number" class="vida" onfocus="this.select()">
+      Vida: <input type="text" class="vida atual" onblur="somar(this)" > /
+      <input type="text" class="vida total" onblur="somarTotal(this)">
       Anot.: <input type="text" class="anotacao">
       <button onclick="adicionarStatus(this)" class="botao-imagem">
         <img src="addEffect.png" alt="Botão" class="imagem-do-botao">
@@ -41,25 +44,91 @@ function addAtor() {
 
 
   // Adiciona os eventos para reorganizar apenas ao terminar de digitar ou sair do campo
-    const inputIniciativa = ator.querySelector('.iniciativa');
+  const inputVida = ator.querySelectorAll('.vida');
+  const inputIniciativa = ator.querySelector('.iniciativa');
 
-    // Quando clica no campo, seleciona o texto automaticamente
-    inputIniciativa.addEventListener('focus', function () {
+  inputVida.forEach(input => {
+    input.value = 0;
+    input.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        this.blur();
+      }
+    });
+
+    input.addEventListener('focus', function () {
+      this.select();
+    });
+
+    input.addEventListener('input', e => validarNumeroComSinal(e.target));
+
+  });
+
+  // Quando clica no campo, seleciona o texto automaticamente
+  inputIniciativa.addEventListener('focus', function () {
     this.select();
-    });
+  });
 
-    // Reorganiza ao sair do campo
-    inputIniciativa.addEventListener('blur', ordenarLista);
-
-    // Reorganiza se pressionar Enter
-    inputIniciativa.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') {
-        ordenarLista();
-        this.blur(); // Sai do campo após confirmar
+  // Reorganiza ao sair do campo
+  inputIniciativa.addEventListener('blur', function () {
+    
+    if ((this.value)[0] == '+' ||(this.value)[0] == '-' ) {
+      const initOculta = parseInt(this.parentElement.parentElement.dataset.initReal) || 0
+      this.value = initOculta + parseInt(this.value)
     }
-    });
+    
+    this.parentElement.parentElement.dataset.initReal = parseInt(this.value)
+    ordenarLista();
+  });
+
+  // Reorganiza se pressionar Enter
+  inputIniciativa.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+      this.blur(); // Sai do campo após confirmar
+  }
+  });
 
   lista.appendChild(ator);
+}
+
+function somar(vida){
+  const vidaOculta = parseInt(vida.parentElement.parentElement.dataset.vidaAtual) || 0
+  const vidaOcultaTotal = parseInt(vida.parentElement.parentElement.dataset.vidaTotal) || 0
+  const vidaSomada = vidaOculta + parseInt(vida.value)
+
+  if ((vida.value)[0] == '+' ||(vida.value)[0] == '-' ) {
+    vida.value = (vidaSomada >= vidaOcultaTotal ? vidaOcultaTotal : vidaSomada) < 0 ? 0 : vidaSomada
+  }
+  
+  if(parseInt(vida.value)>vidaOcultaTotal){
+    vida.value = vidaOcultaTotal
+  }
+  vida.value = vida.value === '' ? 0 : vida.value;
+  vida.parentElement.parentElement.dataset.vidaAtual = parseInt(vida.value)
+}
+
+function somarTotal(vida){
+  const vidaOculta = parseInt(vida.parentElement.parentElement.dataset.vidaAtual) || 0
+  const vidaOcultaTotal = parseInt(vida.parentElement.parentElement.dataset.vidaTotal) || 0
+  const vidaSomada = vidaOcultaTotal + parseInt(vida.value)
+  
+  if ((vida.value)[0] == '+' ||(vida.value)[0] == '-' ) {
+    vida.value = vidaSomada < 0 ? 0 : vidaSomada
+  }
+  vida.value = vida.value === '' ? 0 : vida.value;
+  if(parseInt(vida.value)<vidaOculta){
+    vida.parentElement.parentElement.dataset.vidaAtual = parseInt(vida.value)
+    vida.parentElement.querySelector('.atual').value = vida.value
+  }
+  
+  vida.parentElement.parentElement.dataset.vidaTotal = parseInt(vida.value)
+}
+
+function validarNumeroComSinal(input) {
+  // Remove qualquer caractere que não seja dígito, + ou -
+  // input.value = input.value.replace(/[^0-9+-]/g, '');
+
+  // Se quiser limitar o + e - apenas no início, use esta versão:
+  input.value = input.value.replace(/(?!^[-+])[^0-9]/g, '');
 }
 
 function limparDados(){
@@ -74,7 +143,9 @@ function limparDados(){
     ator.querySelector('.iniciativa').value = '';
     ator.dataset.tipo = "Ambiente"
     trocarTipo(ator.querySelector('.botao-pequeno'))
-    ator.querySelectorAll('.vida').forEach(input => input.value = '');
+    ator.querySelectorAll('.vida').forEach(input => input.value = 0);
+    ator.dataset.vidaAtual = 0;
+    ator.dataset.vidaTotal = 0;
     ator.querySelector('.anotacao').value = '';
   });
 }
@@ -146,7 +217,8 @@ function rolarTodasIniciativas() {
     const tier = ator.querySelector('.tier').value;
     const iniciativaInput = ator.querySelector('.iniciativa');
     let valor = rolarDadoPorTier(ator.querySelector('.nome').value , tier);
-    iniciativaInput.value = valor;
+    ator.dataset.initReal = valor
+    iniciativaInput.value = String(valor);
   });
 
   ordenarLista();
@@ -191,19 +263,19 @@ function ordenarLista() {
 
 
   atores.sort((a, b) => {
-    const aVal = a.dataset.ciclo || 0;
-    const bVal = b.dataset.ciclo || 0;
+    const aVal = parseInt(a.dataset.ciclo) || 0;
+    const bVal = parseInt(b.dataset.ciclo) || 0;
     return bVal - aVal; // Ordem decrescente
   });
   
-
+  
   atores.sort((a, b) => {
-    const aVal = parseInt(a.querySelector('.iniciativa').value) || 0;
-    const bVal = parseInt(b.querySelector('.iniciativa').value) || 0;
+    const aVal = parseInt(a.dataset.initReal) || 0;
+    const bVal = parseInt(b.dataset.initReal) || 0;
     return (aVal + (a.dataset.tipo == "Inimigo" ? 0.5 : 0)) - (bVal + (b.dataset.tipo == "Inimigo" ? 0.5 : 0)); // Ordem decrescente
   });
   atores.forEach(ator => {
-    ator.dataset.ciclo = parseInt(ator.querySelector('.iniciativa').value)
+    ator.dataset.ciclo = ator.dataset.initReal
     lista.appendChild(ator);
   });
 }
@@ -228,7 +300,8 @@ function zeraIniciativa(){
     inputsInit.forEach(input => {
     const valorAtual = parseInt(input.value) || 0; // transforma o valor em número
     input.value = Math.max(0, valorAtual - valorAtual%10 - (countInit ? 0 : 10));     // reduz 10, sem deixar negativo
-    input.parentElement.dataset.ciclo = input.value/10 + 1
+    input.parentElement.parentElement.dataset.ciclo = input.value/10 + 1
+    input.parentElement.parentElement.dataset.initReal = input.value
   });
   countInit = false
 }
