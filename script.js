@@ -11,8 +11,8 @@ function addAtor() {
   ator.dataset.ciclo = 1;
   ator.dataset.tipo = "Neutro"
   ator.dataset.initReal = '';
-  ator.dataset.vidaTotal = 0;
-  ator.dataset.vidaAtual = 0;
+  ator.dataset.vidaTotal = '';
+  ator.dataset.vidaAtual = '';
 
   ator.innerHTML = `
     <div class="linha">
@@ -48,7 +48,7 @@ function addAtor() {
   const inputIniciativa = ator.querySelector('.iniciativa');
 
   inputVida.forEach(input => {
-    input.value = 0;
+    input.value = 0
     input.addEventListener('keydown', function (event) {
       if (event.key === 'Enter') {
         this.blur();
@@ -70,12 +70,12 @@ function addAtor() {
 
   // Reorganiza ao sair do campo
   inputIniciativa.addEventListener('blur', function () {
-    
+    //this.dataset.initReal
+    //alert(this.value)
     if ((this.value)[0] == '+' ||(this.value)[0] == '-' ) {
       const initOculta = parseInt(this.parentElement.parentElement.dataset.initReal) || 0
       this.value = initOculta + parseInt(this.value)
     }
-    
     this.parentElement.parentElement.dataset.initReal = parseInt(this.value)
     ordenarLista();
   });
@@ -91,36 +91,41 @@ function addAtor() {
 }
 
 function somar(vida){
+  const vidaVisual = parseInt(vida.value)
   const vidaOculta = parseInt(vida.parentElement.parentElement.dataset.vidaAtual) || 0
   const vidaOcultaTotal = parseInt(vida.parentElement.parentElement.dataset.vidaTotal) || 0
-  const vidaSomada = vidaOculta + parseInt(vida.value)
+  const vidaSomada = vidaOculta + vidaVisual
+  if(!vida.value){
+    vida.value = vidaOculta
+  }else{
+    if(vidaVisual>vidaOcultaTotal){
+      vida.value = vidaOcultaTotal
+    }else{
+      if ((vida.value)[0] == '+' ||(vida.value)[0] == '-' ) {
+        vida.value = (vidaSomada >= vidaOcultaTotal ? vidaOcultaTotal : vidaSomada) < 0 ? 0 : vidaSomada
+      }
+    }
+    vida.parentElement.parentElement.dataset.vidaAtual = parseInt(vida.value)
+  }
 
-  if ((vida.value)[0] == '+' ||(vida.value)[0] == '-' ) {
-    vida.value = (vidaSomada >= vidaOcultaTotal ? vidaOcultaTotal : vidaSomada) < 0 ? 0 : vidaSomada
-  }
-  
-  if(parseInt(vida.value)>vidaOcultaTotal){
-    vida.value = vidaOcultaTotal
-  }
-  vida.value = vida.value === '' ? 0 : vida.value;
-  vida.parentElement.parentElement.dataset.vidaAtual = parseInt(vida.value)
 }
 
 function somarTotal(vida){
   const vidaOculta = parseInt(vida.parentElement.parentElement.dataset.vidaAtual) || 0
   const vidaOcultaTotal = parseInt(vida.parentElement.parentElement.dataset.vidaTotal) || 0
   const vidaSomada = vidaOcultaTotal + parseInt(vida.value)
-  
-  if ((vida.value)[0] == '+' ||(vida.value)[0] == '-' ) {
-    vida.value = vidaSomada < 0 ? 0 : vidaSomada
+  if(!vida.value){
+    vida.value = vidaOcultaTotal
+  }else{
+    if ((vida.value)[0] == '+' ||(vida.value)[0] == '-' ) {
+      vida.value = vidaSomada < 0 ? 0 : vidaSomada
+      if(vidaSomada<vidaOculta){
+        vida.parentElement.querySelector('.atual').value = String(vida.value)
+        vida.parentElement.parentElement.dataset.vidaAtual = vida.value
+      }
+    }
+    vida.parentElement.parentElement.dataset.vidaTotal = parseInt(vida.value)
   }
-  vida.value = vida.value === '' ? 0 : vida.value;
-  if(parseInt(vida.value)<vidaOculta){
-    vida.parentElement.parentElement.dataset.vidaAtual = parseInt(vida.value)
-    vida.parentElement.querySelector('.atual').value = vida.value
-  }
-  
-  vida.parentElement.parentElement.dataset.vidaTotal = parseInt(vida.value)
 }
 
 function validarNumeroComSinal(input) {
@@ -130,7 +135,6 @@ function validarNumeroComSinal(input) {
   // Se quiser limitar o + e - apenas no início, use esta versão:
   input.value = input.value.replace(/(?!^[-+])[^0-9]/g, '');
 }
-
 function limparDados(){
   const atores = document.querySelectorAll('.ator');
   const status = document.querySelectorAll('.status');
@@ -141,11 +145,12 @@ function limparDados(){
     ator.querySelector('.tier').value = 'D';
     ator.querySelector('.nome').value = '';
     ator.querySelector('.iniciativa').value = '';
+    ator.dataset.initReal = ''
     ator.dataset.tipo = "Ambiente"
     trocarTipo(ator.querySelector('.botao-pequeno'))
-    ator.querySelectorAll('.vida').forEach(input => input.value = 0);
-    ator.dataset.vidaAtual = 0;
-    ator.dataset.vidaTotal = 0;
+    ator.querySelectorAll('.vida').forEach(input => input.value = '0');
+    ator.dataset.vidaAtual = 0
+    ator.dataset.vidaTotal = 0
     ator.querySelector('.anotacao').value = '';
   });
 }
