@@ -77,7 +77,7 @@ function addAtor() {
       this.value = initOculta + parseInt(this.value)
     }
     this.parentElement.parentElement.dataset.initReal = parseInt(this.value)
-    ordenarLista();
+    ordenarLista(false);
   });
 
   // Reorganiza se pressionar Enter
@@ -206,7 +206,7 @@ function trocarTipo(botao){
     ator.style.borderColor = '#bebebe'
 
   }
-  ordenarLista()
+  ordenarLista(false)
 }
 
 function removerAtor(botao){
@@ -226,7 +226,7 @@ function rolarTodasIniciativas() {
     iniciativaInput.value = String(valor);
   });
 
-  ordenarLista();
+  ordenarLista(true);
 
   atores.forEach(ator => {
     const iniciativaInput = ator.querySelector('.iniciativa');
@@ -261,7 +261,7 @@ function rolarDadoPorTier(nome, tier) {
   return  result;
 }
 
-function ordenarLista() {
+function ordenarLista(firstRoll) {
   const lista = document.getElementById('listaAtos');
   const atores = Array.from(lista.children);
 
@@ -273,12 +273,19 @@ function ordenarLista() {
     return bVal - aVal; // Ordem decrescente
   });
   
-  
-  atores.sort((a, b) => {
-    const aVal = parseInt(a.dataset.initReal) || 0;
-    const bVal = parseInt(b.dataset.initReal) || 0;
-    return (aVal + (a.dataset.tipo == "Inimigo" ? 0.5 : 0)) - (bVal + (b.dataset.tipo == "Inimigo" ? 0.5 : 0)); // Ordem decrescente
-  });
+  if(firstRoll){
+    atores.sort((a, b) => {
+      const aVal = parseInt(a.dataset.initReal) || 0;
+      const bVal = parseInt(b.dataset.initReal) || 0;
+      return (aVal + (a.dataset.tipo == "Inimigo" ? 0.5 : 0)) - (bVal + (b.dataset.tipo == "Inimigo" ? 0.5 : 0)); // Ordem decrescente
+    });
+  }else{
+    atores.sort((a, b) => {
+      const aVal = parseInt(a.dataset.initReal) || 0;
+      const bVal = parseInt(b.dataset.initReal) || 0;
+      return aVal - bVal; // Ordem decrescente
+    });
+  }
   atores.forEach(ator => {
     ator.dataset.ciclo = ator.dataset.initReal
     lista.appendChild(ator);
