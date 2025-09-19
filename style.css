@@ -25,17 +25,17 @@ body {
   max-width: 600px;
   height: 720px;
   /*margin:auto;*/
-  padding-top: 5px;
+  padding-top: 7px;
 }
 
 .historico {
-  padding-top: 7px;
+  padding: 7px 7px 0 7px;
   height: 720px;           /* Altura fixa da div */
   /*margin:auto;*/
   overflow-y: auto;        /* Cria uma barra de rolagem vertical se necessário */
   /*border: 1px solid #000;  /* Apenas para visualizar os limites */
   /*padding: 10px;*/
-  max-width: 600px;
+  max-width: 586px;
   min-width: 300px;
   flex: 1 1 500px;
 }
